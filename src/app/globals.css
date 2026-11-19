@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+/* ─── MH AI OS Design System ─────────────────────────────────────────────── */
+
+@theme inline {
+  /* Colors */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-accent: var(--accent);
+  --color-accent-muted: var(--accent-muted);
+  --color-accent-fg: var(--accent-fg);
+
+  /* Status colors */
+  --color-status-active: var(--status-active);
+  --color-status-idle: var(--status-idle);
+  --color-status-busy: var(--status-busy);
+  --color-status-error: var(--status-error);
+
+  /* Provider colors */
+  --color-openai: #10a37f;
+  --color-anthropic: #d4a36e;
+  --color-google: #4285f4;
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Spacing rhythm */
+  --spacing-page-x: 2rem;
+  --spacing-page-y: 1.5rem;
+  --sidebar-width: 15rem;
+  --sidebar-collapsed: 3.5rem;
+  --topbar-height: 3.25rem;
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ─── Dark Theme (default) ────────────────────────────────────────────────── */
+:root {
+  --background: #0a0a0a;
+  --surface: #111111;
+  --surface-raised: #181818;
+  --border: #222222;
+  --border-subtle: #181818;
+  --text-primary: #f0ede8;
+  --text-secondary: #919191;
+  --text-tertiary: #555555;
+  --accent: #e8d5b7;
+  --accent-muted: rgba(232, 213, 183, 0.08);
+  --accent-fg: #0a0a0a;
+  --status-active: #4ade80;
+  --status-idle: #737373;
+  --status-busy: #fbbf24;
+  --status-error: #f87171;
+}
+
+/* ─── Light Theme ─────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --background: #fafaf9;
+  --surface: #ffffff;
+  --surface-raised: #f5f5f4;
+  --border: #e0e0e0;
+  --border-subtle: #ececec;
+  --text-primary: #111110;
+  --text-secondary: #5a5a5a;
+  --text-tertiary: #9a9a9a;
+  --accent: #a07843;
+  --accent-muted: rgba(160, 120, 67, 0.08);
+  --accent-fg: #ffffff;
+  --status-active: #16a34a;
+  --status-idle: #737373;
+  --status-busy: #d97706;
+  --status-error: #dc2626;
+}
+
+/* ─── Respect system dark preference (when no explicit data-theme) ─────────── */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    --background: #0a0a0a;
+    --surface: #111111;
+    --surface-raised: #181818;
+    --border: #222222;
+    --border-subtle: #181818;
+    --text-primary: #f0ede8;
+    --text-secondary: #919191;
+    --text-tertiary: #555555;
+    --accent: #e8d5b7;
+    --accent-muted: rgba(232, 213, 183, 0.08);
+    --accent-fg: #0a0a0a;
+    --status-active: #4ade80;
+    --status-idle: #737373;
+    --status-busy: #fbbf24;
+    --status-error: #f87171;
+  }
+}
+
+/* ─── Base ────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
+}
+
+/* ─── Typography ──────────────────────────────────────────────────────────── */
+.display-xl {
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+/* Hero headline — editorial, never clips, content-width aware */
+.hero-headline {
+  font-size: clamp(2.5rem, 5vw + 1rem, 5.5rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.display-lg {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.display-md {
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.heading-lg {
+  font-size: 1.375rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.heading-md {
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.heading-sm {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.4;
+}
+
+.body-lg {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.body-sm {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* ─── Layout Utilities ────────────────────────────────────────────────────── */
+.page-container {
+  padding: var(--spacing-page-y) var(--spacing-page-x);
+}
+
+.section-gap {
+  margin-bottom: 4rem;
+}
+
+/* ─── Thin Hairline Border ────────────────────────────────────────────────── */
+.hairline {
+  border-color: var(--border);
+  border-width: 1px;
+}
+
+/* ─── Focus States ────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* ─── Selection ───────────────────────────────────────────────────────────── */
+::selection {
+  background: var(--accent-muted);
+  color: var(--accent);
+}
+
+/* ─── Animated gradient text ──────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Noise texture overlay ───────────────────────────────────────────────── */
+.noise-bg {
+  position: relative;
+}
+.noise-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+  border-radius: inherit;
+}
+
+/* ─── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
