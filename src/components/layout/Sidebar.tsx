@@ -68,14 +68,14 @@ interface SidebarProps {
 export default function Sidebar({ collapsed, onToggle, isDesktop }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const { createConversation } = useConversationStore();
+  const { newConversation } = useConversationStore();
 
   function handleNewConversation() {
-    const id = createConversation();
+    const id = newConversation();
     router.push('/chat');
     // slight delay so navigation settles before we set active
     setTimeout(() => {
-      useConversationStore.getState().setActive(id);
+      useConversationStore.getState().switchConversation(id);
     }, 50);
   }
 
